@@ -1,0 +1,1789 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>EdgeNet Client PoC Request Portal</title>
+  <link rel="icon" type="jpeg" href="assests/logo.jpeg">
+  <link rel="stylesheet" href="src/styles.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@sweetalert2/theme-bootstrap-4/bootstrap-4.min.css">
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body>
+
+<!-- ============================================================
+     PAGE 1 — LOGIN
+     ============================================================ -->
+<div id="page-login" class="page active">
+  <div class="login-bg">
+    <div class="login-bg-grid"></div>
+    <div class="login-bg-glow login-glow-1"></div>
+    <div class="login-bg-glow login-glow-2"></div>
+  </div>
+
+  <div class="login-wrapper">
+    <!-- Branding strip -->
+    <div class="login-brand-strip">
+      <img src="assests/logo.jpeg" alt="EdgeNet Logo" style="height: 32px; width: auto; margin-right: 12px;">
+      <span class="login-brand-name">EdgeNet</span>
+    </div>
+
+    <div class="login-card">
+      <div class="login-card-header">
+        <div class="login-logo-block">
+          <div class="login-logo-icon">
+            <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
+              <rect x="2" y="2" width="10" height="10" rx="2" fill="currentColor" opacity="0.9"/>
+              <rect x="16" y="2" width="10" height="10" rx="2" fill="currentColor" opacity="0.5"/>
+              <rect x="2" y="16" width="10" height="10" rx="2" fill="currentColor" opacity="0.5"/>
+              <rect x="16" y="16" width="10" height="10" rx="2" fill="currentColor" opacity="0.9"/>
+            </svg>
+          </div>
+        </div>
+        <h1 class="login-title">EdgeNet Client PoC<br/>Request Portal</h1>
+        <p class="login-subtitle">Internal Enterprise System · IT Consulting Division</p>
+      </div>
+
+      <div class="login-form">
+        <div class="form-group">
+          <label class="form-label" for="login-email">Corporate Email</label>
+          <div class="input-wrapper">
+            <span class="input-icon">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                <path d="M2 4a2 2 0 012-2h8a2 2 0 012 2v8a2 2 0 01-2 2H4a2 2 0 01-2-2V4z" stroke="currentColor" stroke-width="1.5"/>
+                <path d="M2 5l6 4 6-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+              </svg>
+            </span>
+            <input type="email" id="login-email" class="form-input" placeholder="you@edgenet.com" />
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="login-password">Password</label>
+          <div class="input-wrapper">
+            <span class="input-icon">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                <rect x="3" y="7" width="10" height="7" rx="1.5" stroke="currentColor" stroke-width="1.5"/>
+                <path d="M5 7V5a3 3 0 016 0v2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+              </svg>
+            </span>
+            <input type="password" id="login-password" class="form-input" placeholder="••••••••••••" />
+          </div>
+          <div class="form-row-end">
+            <a href="#" class="link-subtle">Forgot password?</a>
+          </div>
+        </div>
+
+        <p class="auth-message" id="login-message"></p>
+
+        <button class="btn-primary btn-full" type="button" id="signInBtn">
+          <span>Sign In</span>
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+            <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </button>
+
+      </div>
+
+      <p class="auth-switch">New to EdgeNet? <a href="#" onclick="navigateTo('signup')">Create an account</a></p>
+
+      <div class="login-footer">
+        <span class="badge-secure">
+          <svg width="10" height="10" viewBox="0 0 10 10" fill="none">
+            <path d="M5 1L9 3v3c0 2-2 3-4 3S1 8 1 6V3l4-2z" fill="currentColor"/>
+          </svg>
+          SOC 2 Compliant
+        </span>
+        <span class="login-version">v2.4.1</span>
+      </div>
+    </div>
+
+    <p class="login-legal">© 2025 EdgeNet Consulting Group · All rights reserved · <a href="#">Privacy Policy</a></p>
+  </div>
+</div>
+
+
+<!-- ============================================================
+     PAGE 1B - SIGN UP
+     ============================================================ -->
+<div id="page-signup" class="page">
+  <div class="login-bg">
+    <div class="login-bg-grid"></div>
+    <div class="login-bg-glow login-glow-1"></div>
+    <div class="login-bg-glow login-glow-2"></div>
+  </div>
+
+  <div class="login-wrapper">
+    <div class="login-brand-strip">
+      <img src="assests/logo.jpeg" alt="EdgeNet Logo" style="height: 32px; width: auto; margin-right: 12px;">
+      <span class="login-brand-name">EdgeNet</span>
+    </div>
+
+    <div class="login-card">
+      <div class="login-card-header">
+        <div class="login-logo-block">
+          <div class="login-logo-icon">
+            <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
+              <rect x="2" y="2" width="10" height="10" rx="2" fill="currentColor" opacity="0.9"/>
+              <rect x="16" y="2" width="10" height="10" rx="2" fill="currentColor" opacity="0.5"/>
+              <rect x="2" y="16" width="10" height="10" rx="2" fill="currentColor" opacity="0.5"/>
+              <rect x="16" y="16" width="10" height="10" rx="2" fill="currentColor" opacity="0.9"/>
+            </svg>
+          </div>
+        </div>
+        <h1 class="login-title">Create Your Account</h1>
+        <p class="login-subtitle">Supabase Auth · User Access</p>
+      </div>
+
+      <div class="login-form">
+        <div class="form-group">
+          <label class="form-label" for="signup-name">Full Name</label>
+          <input type="text" id="signup-name" class="form-input" placeholder="Your full name" />
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="signup-email">Corporate Email</label>
+          <input type="email" id="signup-email" class="form-input" placeholder="you@edgenet.com" />
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="signup-password">Password</label>
+          <input type="password" id="signup-password" class="form-input" placeholder="Minimum 6 characters" />
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="signup-confirm-password">Confirm Password</label>
+          <input type="password" id="signup-confirm-password" class="form-input" placeholder="Re-enter password" />
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="signup-role">Role</label>
+          <select id="signup-role" class="form-input form-select">
+            <option value="account_manager">Account Manager</option>
+            <option value="engineer">Engineer</option>
+          </select>
+        </div>
+
+        <p class="auth-message" id="signup-message"></p>
+
+        <button class="btn-primary btn-full" type="button" id="signUpBtn">
+          <span>Create Account</span>
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+            <path d="M8 3v10M3 8h10" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+        </button>
+      </div>
+
+      <p class="auth-switch">Already have an account? <a href="#" onclick="navigateTo('login')">Sign in</a></p>
+    </div>
+  </div>
+</div>
+
+
+<!-- ============================================================
+     PAGE 2 — ACCOUNT MANAGER DASHBOARD
+     ============================================================ -->
+<div id="page-dashboard" class="page">
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <div class="sidebar-logo">
+      <img class="sidebar-logo-mark" src="assests/logo.jpeg" alt="EdgeNet Logo">
+      <div class="sidebar-logo-text">
+        <span class="sidebar-brand">EdgeNet</span>
+        <span class="sidebar-tagline">Client Portal</span>
+      </div>
+    </div>
+
+    <nav class="sidebar-nav">
+      <div class="nav-section-label">Main</div>
+      <a class="nav-item active" onclick="navigateTo('dashboard')">
+        <svg class="nav-icon" viewBox="0 0 20 20" fill="none"><rect x="2" y="2" width="7" height="7" rx="1.5" fill="currentColor"/><rect x="11" y="2" width="7" height="7" rx="1.5" fill="currentColor" opacity=".5"/><rect x="2" y="11" width="7" height="7" rx="1.5" fill="currentColor" opacity=".5"/><rect x="11" y="11" width="7" height="7" rx="1.5" fill="currentColor"/></svg>
+        Dashboard
+        <span class="nav-badge">3</span>
+      </a>
+      <a class="nav-item" onclick="navigateTo('form')">
+        <svg class="nav-icon" viewBox="0 0 20 20" fill="none"><path d="M10 4v12M4 10h12" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+        New PoC Request
+      </a>
+      <a class="nav-item" onclick="navigateTo('kanban')">
+        <svg class="nav-icon" viewBox="0 0 20 20" fill="none"><rect x="2" y="4" width="4" height="13" rx="1" fill="currentColor" opacity=".4"/><rect x="8" y="4" width="4" height="9" rx="1" fill="currentColor"/><rect x="14" y="4" width="4" height="11" rx="1" fill="currentColor" opacity=".6"/></svg>
+        Kanban Board
+      </a>
+
+      <div class="nav-section-label">Management</div>
+      <a class="nav-item" onclick="navigateTo('details')">
+        <svg class="nav-icon" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="7.5" stroke="currentColor" stroke-width="1.5"/><path d="M10 9v5M10 6.5v.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+        Request Details
+      </a>
+      <a class="nav-item am-only" onclick="navigateTo('engineers')">
+        <svg class="nav-icon" viewBox="0 0 20 20" fill="none"><path d="M4 4h12v2a4 4 0 010 8v2H4v-2a4 4 0 010-8V4z" stroke="currentColor" stroke-width="1.5"/></svg>
+        Engineers
+      </a>
+      <a class="nav-item" onclick="navigateTo('reports')">
+        <svg class="nav-icon" viewBox="0 0 20 20" fill="none"><path d="M3 5h14M3 10h14M3 15h8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+        Reports
+      </a>
+
+      <div class="nav-section-label">System</div>
+      <a class="nav-item" onclick="navigateTo('settings')">
+        <svg class="nav-icon" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="2.5" stroke="currentColor" stroke-width="1.5"/><path d="M10 3v1.5M10 15.5V17M3 10h1.5M15.5 10H17M4.9 4.9l1.1 1.1M14 14l1.1 1.1M4.9 15.1L6 14M14 6l1.1-1.1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+        Settings
+      </a>
+    </nav>
+
+    <div class="sidebar-user">
+      <img class="user-avatar user-avatar-img" src="assests/profile.jpg" alt="User profile picture">
+      <div class="user-info">
+        <span class="user-name"></span>
+        <span class="user-role"></span>
+      </div>
+      <button class="btn-logout" onclick="navigateTo('login')" title="Sign out">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M6 2H3a1 1 0 00-1 1v10a1 1 0 001 1h3M10 11l3-3-3-3M13 8H6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+    </div>
+  </aside>
+
+  <!-- Main content -->
+  <div class="main-content">
+    <!-- Top bar -->
+    <header class="topbar">
+      <div class="topbar-left">
+        <h2 class="page-title">Dashboard</h2>
+        <span class="breadcrumb">Home · Overview</span>
+      </div>
+      <div class="topbar-right">
+        <div class="topbar-search">
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><circle cx="6" cy="6" r="4.5" stroke="currentColor" stroke-width="1.5"/><path d="M10 10l2.5 2.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+          <input type="text" placeholder="Search requests…" class="search-input" />
+        </div>
+        <button class="topbar-icon-btn">
+          <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M9 2a5 5 0 015 5v2l1.5 3H2.5L4 9V7a5 5 0 015-5z" stroke="currentColor" stroke-width="1.5"/><path d="M7 14a2 2 0 004 0" stroke="currentColor" stroke-width="1.5"/></svg>
+          <span class="notif-dot"></span>
+        </button>
+        <img class="topbar-avatar user-avatar-img" src="assests/profile.jpg" alt="User profile picture">
+      </div>
+    </header>
+
+    <div class="content-body">
+      <!-- Welcome section -->
+      <div class="welcome-section">
+        <div class="welcome-text">
+          <h3 class="welcome-heading">Good morning</h3>
+          <p class="welcome-sub">Here's what's happening with your PoC portfolio today.</p>
+        </div>
+        <button class="btn-primary" onclick="navigateTo('form')">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 3v10M3 8h10" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+          Create New PoC Request
+        </button>
+      </div>
+
+      <!-- Stats cards -->
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-card-icon stat-icon-blue">
+            <svg width="22" height="22" viewBox="0 0 22 22" fill="none"><path d="M3 6h16M3 11h16M3 16h10" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+          </div>
+          <div class="stat-card-body">
+            <span class="stat-label">Total Requests</span>
+            <span class="stat-value">47</span>
+            <span class="stat-delta stat-up">↑ 12% this month</span>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-card-icon stat-icon-orange">
+            <svg width="22" height="22" viewBox="0 0 22 22" fill="none"><circle cx="11" cy="11" r="8" stroke="currentColor" stroke-width="1.8"/><path d="M11 7v4l2.5 2.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+          </div>
+          <div class="stat-card-body">
+            <span class="stat-label">Active PoCs</span>
+            <span class="stat-value">18</span>
+            <span class="stat-delta stat-up">↑ 4 new this week</span>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-card-icon stat-icon-green">
+            <svg width="22" height="22" viewBox="0 0 22 22" fill="none"><circle cx="11" cy="11" r="8" stroke="currentColor" stroke-width="1.8"/><path d="M7 11l3 3 5-5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <div class="stat-card-body">
+            <span class="stat-label">Completed PoCs</span>
+            <span class="stat-value">22</span>
+            <span class="stat-delta stat-up">↑ 3 this quarter</span>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-card-icon stat-icon-purple">
+            <svg width="22" height="22" viewBox="0 0 22 22" fill="none"><path d="M4 4h14v2a4 4 0 010 8v2H4v-2a4 4 0 010-8V4z" stroke="currentColor" stroke-width="1.8"/></svg>
+          </div>
+          <div class="stat-card-body">
+            <span class="stat-label">Pending Requests</span>
+            <span class="stat-value">7</span>
+            <span class="stat-delta stat-down">↓ 2 awaiting approval</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Table section -->
+      <div class="table-card">
+        <div class="table-card-header">
+          <div>
+            <h4 class="table-card-title">PoC Request Registry</h4>
+            <p class="table-card-sub">All active and historical proof-of-concept engagements</p>
+          </div>
+          <div class="table-filters">
+            <select class="filter-select">
+              <option>All Statuses</option>
+              <option>New Request</option>
+              <option>Infrastructure Provisioning</option>
+              <option>In Testing</option>
+              <option>Completed</option>
+              <option>Decommissioned</option>
+            </select>
+            <button class="btn-outline">Export CSV</button>
+          </div>
+        </div>
+
+        <div class="table-wrapper">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Client Name</th>
+                <th>Project Name</th>
+                <th>Assigned Engineer</th>
+                <th>Start Date</th>
+                <th>End Date</th>
+                <th>Status</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr onclick="navigateTo('details')" class="table-row-link">
+                <td><span class="client-name">Meridian Financial</span></td>
+                <td>Zero Trust Network Pilot</td>
+                <td><span class="engineer-cell"><span class="eng-avatar">RK</span>Raj Kumar</span></td>
+                <td>2025-03-10</td>
+                <td>2025-06-10</td>
+                <td><span class="badge badge-orange">Infrastructure Provisioning</span></td>
+                <td><span class="row-action">→</span></td>
+              </tr>
+              <tr onclick="navigateTo('details')" class="table-row-link">
+                <td><span class="client-name">NovaBridge Corp.</span></td>
+                <td>SD-WAN Edge Deployment</td>
+                <td><span class="engineer-cell"><span class="eng-avatar">SC</span>Sarah Chen</span></td>
+                <td>2025-02-15</td>
+                <td>2025-05-15</td>
+                <td><span class="badge badge-purple">In Testing</span></td>
+                <td><span class="row-action">→</span></td>
+              </tr>
+              <tr onclick="navigateTo('details')" class="table-row-link">
+                <td><span class="client-name">Apex Logistics</span></td>
+                <td>Hybrid Cloud Migration PoC</td>
+                <td><span class="engineer-cell"><span class="eng-avatar">DM</span>David Miller</span></td>
+                <td>2025-01-20</td>
+                <td>2025-04-20</td>
+                <td><span class="badge badge-green">Completed</span></td>
+                <td><span class="row-action">→</span></td>
+              </tr>
+              <tr onclick="navigateTo('details')" class="table-row-link">
+                <td><span class="client-name">Solaris Energy</span></td>
+                <td>OT/IT Network Segmentation</td>
+                <td><span class="engineer-cell"><span class="eng-avatar">AP</span>Aisha Patel</span></td>
+                <td>2025-04-01</td>
+                <td>2025-07-01</td>
+                <td><span class="badge badge-blue">New Request</span></td>
+                <td><span class="row-action">→</span></td>
+              </tr>
+              <tr onclick="navigateTo('details')" class="table-row-link">
+                <td><span class="client-name">Quantum Retail Group</span></td>
+                <td>SASE Platform Evaluation</td>
+                <td><span class="engineer-cell"><span class="eng-avatar">TN</span>Tom Nguyen</span></td>
+                <td>2024-10-05</td>
+                <td>2025-01-05</td>
+                <td><span class="badge badge-gray">Decommissioned</span></td>
+                <td><span class="row-action">→</span></td>
+              </tr>
+              <tr onclick="navigateTo('details')" class="table-row-link">
+                <td><span class="client-name">Harbour Health Systems</span></td>
+                <td>Medical IoT Segmentation</td>
+                <td><span class="engineer-cell"><span class="eng-avatar">LJ</span>Lisa Johnson</span></td>
+                <td>2025-03-22</td>
+                <td>2025-06-22</td>
+                <td><span class="badge badge-orange">Infrastructure Provisioning</span></td>
+                <td><span class="row-action">→</span></td>
+              </tr>
+              <tr onclick="navigateTo('details')" class="table-row-link">
+                <td><span class="client-name">Titan Manufacturing</span></td>
+                <td>Industrial Firewall Refresh</td>
+                <td><span class="engineer-cell"><span class="eng-avatar">BW</span>Ben Walsh</span></td>
+                <td>2025-04-10</td>
+                <td>2025-07-10</td>
+                <td><span class="badge badge-blue">New Request</span></td>
+                <td><span class="row-action">→</span></td>
+              </tr>
+              <tr onclick="navigateTo('details')" class="table-row-link">
+                <td><span class="client-name">ClearPath Insurance</span></td>
+                <td>PAM & Privilege Access PoC</td>
+                <td><span class="engineer-cell"><span class="eng-avatar">MO</span>Maria Okonkwo</span></td>
+                <td>2025-02-28</td>
+                <td>2025-05-28</td>
+                <td><span class="badge badge-purple">In Testing</span></td>
+                <td><span class="row-action">→</span></td>
+              </tr>
+              <tr onclick="navigateTo('details')" class="table-row-link">
+                <td><span class="client-name">Greenfield Telecom</span></td>
+                <td>5G Private Network Trial</td>
+                <td><span class="engineer-cell"><span class="eng-avatar">JL</span>James Lin</span></td>
+                <td>2024-11-15</td>
+                <td>2025-02-15</td>
+                <td><span class="badge badge-green">Completed</span></td>
+                <td><span class="row-action">→</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="table-footer">
+          <span class="table-count">Showing 9 of 47 records</span>
+          <div class="pagination">
+            <button class="page-btn page-btn-active">1</button>
+            <button class="page-btn">2</button>
+            <button class="page-btn">3</button>
+            <span class="page-ellipsis">…</span>
+            <button class="page-btn">6</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ============================================================
+     PAGE 3 — MULTI-STEP POC REQUEST FORM
+     ============================================================ -->
+<div id="page-form" class="page">
+  <aside class="sidebar">
+    <div class="sidebar-logo">
+      <img class="sidebar-logo-mark" src="assests/logo.jpeg" alt="EdgeNet Logo">
+      <div class="sidebar-logo-text">
+        <span class="sidebar-brand">EdgeNet</span>
+        <span class="sidebar-tagline">Client Portal</span>
+      </div>
+    </div>
+    <nav class="sidebar-nav">
+      <div class="nav-section-label">Main</div>
+      <a class="nav-item" onclick="navigateTo('dashboard')">
+        <svg class="nav-icon" viewBox="0 0 20 20" fill="none"><rect x="2" y="2" width="7" height="7" rx="1.5" fill="currentColor"/><rect x="11" y="2" width="7" height="7" rx="1.5" fill="currentColor" opacity=".5"/><rect x="2" y="11" width="7" height="7" rx="1.5" fill="currentColor" opacity=".5"/><rect x="11" y="11" width="7" height="7" rx="1.5" fill="currentColor"/></svg>
+        Dashboard
+      </a>
+      <a class="nav-item active" onclick="navigateTo('form')">
+        <svg class="nav-icon" viewBox="0 0 20 20" fill="none"><path d="M10 4v12M4 10h12" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+        New PoC Request
+      </a>
+      <a class="nav-item" onclick="navigateTo('kanban')">
+        <svg class="nav-icon" viewBox="0 0 20 20" fill="none"><rect x="2" y="4" width="4" height="13" rx="1" fill="currentColor" opacity=".4"/><rect x="8" y="4" width="4" height="9" rx="1" fill="currentColor"/><rect x="14" y="4" width="4" height="11" rx="1" fill="currentColor" opacity=".6"/></svg>
+        Kanban Board
+      </a>
+      <div class="nav-section-label">Management</div>
+      <a class="nav-item" onclick="navigateTo('details')">
+        <svg class="nav-icon" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="7.5" stroke="currentColor" stroke-width="1.5"/><path d="M10 9v5M10 6.5v.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+        Request Details
+      </a>
+      <a class="nav-item" onclick="navigateTo('reports')"><svg class="nav-icon" viewBox="0 0 20 20" fill="none"><path d="M3 5h14M3 10h14M3 15h8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>Reports</a>
+    </nav>
+    <div class="sidebar-user">
+      <img class="user-avatar user-avatar-img" src="assests/profile.jpg" alt="User profile picture">
+      <div class="user-info">
+        <span class="user-name"></span>
+        <span class="user-role"></span>
+      </div>
+      <button class="btn-logout" onclick="navigateTo('login')">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M6 2H3a1 1 0 00-1 1v10a1 1 0 001 1h3M10 11l3-3-3-3M13 8H6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+    </div>
+  </aside>
+
+  <div class="main-content">
+    <header class="topbar">
+      <div class="topbar-left">
+        <h2 class="page-title">New PoC Request</h2>
+        <span class="breadcrumb">Home · Requests · New</span>
+      </div>
+      <div class="topbar-right">
+        <button class="btn-outline" onclick="navigateTo('dashboard')">← Back to Dashboard</button>
+        <img class="topbar-avatar user-avatar-img" src="assests/profile.jpg" alt="User profile picture">
+      </div>
+    </header>
+
+    <div class="content-body">
+      <!-- Step indicator -->
+      <div class="steps-indicator">
+        <div class="step-item step-done">
+          <div class="step-circle">A</div>
+          <span class="step-label">Client Info</span>
+        </div>
+        <div class="step-line step-line-done"></div>
+        <div class="step-item step-done">
+          <div class="step-circle">B</div>
+          <span class="step-label">Timeline</span>
+        </div>
+        <div class="step-line step-line-done"></div>
+        <div class="step-item step-active">
+          <div class="step-circle">C</div>
+          <span class="step-label">Resources</span>
+        </div>
+        <div class="step-line"></div>
+        <div class="step-item">
+          <div class="step-circle">D</div>
+          <span class="step-label">Review</span>
+        </div>
+      </div>
+
+      <!-- Section A -->
+      <div class="form-card">
+        <div class="form-card-header">
+          <div class="form-section-badge">A</div>
+          <div>
+            <h4 class="form-section-title">Client Information</h4>
+            <p class="form-section-sub">Primary contact and project identification details</p>
+          </div>
+        </div>
+        <div class="form-card-body">
+          <div class="form-grid-3">
+            <div class="form-group">
+              <label class="form-label">Client Name <span class="required">*</span></label>
+              <input type="text" class="form-input" placeholder="e.g. Meridian Financial Group" value="NovaBridge Corp." />
+            </div>
+            <div class="form-group">
+              <label class="form-label">Project Name <span class="required">*</span></label>
+              <input type="text" class="form-input" placeholder="e.g. Zero Trust Network Pilot" value="SD-WAN Resilience PoC" />
+            </div>
+            <div class="form-group">
+              <label class="form-label">Account Manager Email <span class="required">*</span></label>
+              <input type="email" id="form-am-email" class="form-input" placeholder="manager@edgenet.com" readonly />
+            </div>
+          </div>
+          <div class="form-grid-2">
+            <div class="form-group">
+              <label class="form-label">Client Industry</label>
+              <select class="form-input form-select">
+                <option>— Select Industry —</option>
+                <option selected>Financial Services</option>
+                <option>Healthcare</option>
+                <option>Manufacturing</option>
+                <option>Telecommunications</option>
+                <option>Retail &amp; E-Commerce</option>
+                <option>Energy &amp; Utilities</option>
+                <option>Government</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Client Technical Contact</label>
+              <input type="text" class="form-input" placeholder="Name and email" value="Kevin Zhao — kzhao@novabridge.com" />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Section B -->
+      <div class="form-card">
+        <div class="form-card-header">
+          <div class="form-section-badge form-section-badge-b">B</div>
+          <div>
+            <h4 class="form-section-title">Project Timeline</h4>
+            <p class="form-section-sub">Define the PoC engagement window and key milestones</p>
+          </div>
+        </div>
+        <div class="form-card-body">
+          <div class="form-grid-2">
+            <div class="form-group">
+              <label class="form-label">Target Start Date <span class="required">*</span></label>
+              <input type="date" class="form-input" value="2025-05-01" />
+            </div>
+            <div class="form-group">
+              <label class="form-label">Target End Date <span class="required">*</span></label>
+              <input type="date" class="form-input" value="2025-08-01" />
+            </div>
+          </div>
+          <div class="form-grid-2">
+            <div class="form-group">
+              <label class="form-label">Priority Level</label>
+              <select class="form-input form-select">
+                <option>Standard (4–6 weeks provisioning)</option>
+                <option selected>High (2–3 weeks provisioning)</option>
+                <option>Critical (1 week provisioning)</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Expected PoC Duration</label>
+              <select class="form-input form-select">
+                <option>30 Days</option>
+                <option>45 Days</option>
+                <option selected>60 Days</option>
+                <option>90 Days</option>
+                <option>Custom</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Project Objectives &amp; Success Criteria</label>
+            <textarea id="form-objectives" class="form-input form-textarea" rows="3" placeholder="Describe the technical goals and measurable outcomes for this PoC…">Validate SD-WAN performance under failover conditions across 3 simulated branch sites. Success criteria: sub-50ms failover, 99.9% uptime during 30-day test window, and documented cost-savings analysis vs. legacy MPLS.</textarea>
+          </div>
+        </div>
+      </div>
+
+      <!-- Section C — Resources -->
+      <div class="form-card">
+        <div class="form-card-header">
+          <div class="form-section-badge form-section-badge-c">C</div>
+          <div>
+            <h4 class="form-section-title">Resource Requirements</h4>
+            <p class="form-section-sub">Specify the infrastructure and resources required for this PoC environment</p>
+          </div>
+        </div>
+        <div class="form-card-body">
+          <div class="resource-table-wrapper">
+            <table class="resource-table">
+              <thead>
+                <tr>
+                  <th style="width:26%">Resource Type</th>
+                  <th>Specifications</th>
+                  <th style="width:9%">Qty</th>
+                  <th style="width:7%"></th>
+                </tr>
+              </thead>
+              <tbody id="resource-rows">
+                <tr class="resource-row">
+                  <td>
+                    <select class="form-input form-select resource-select">
+                      <option selected>Virtual Machine</option>
+                      <option>Physical Server Hardware</option>
+                      <option>SAN/NAS Storage</option>
+                      <option>Cisco Networking/Switch</option>
+                      <option>Software Evaluation License</option>
+                    </select>
+                  </td>
+                  <td>
+                    <textarea class="form-input form-textarea resource-spec" rows="2">4 vCPU, 16GB RAM, 250GB SSD — Ubuntu 22.04 LTS — SD-WAN controller node</textarea>
+                  </td>
+                  <td>
+                    <input type="number" class="form-input resource-qty" value="3" min="1" />
+                  </td>
+                  <td>
+                    <button class="btn-remove" onclick="removeRow(this)">✕</button>
+                  </td>
+                </tr>
+                <tr class="resource-row">
+                  <td>
+                    <select class="form-input form-select resource-select">
+                      <option>Virtual Machine</option>
+                      <option>Physical Server Hardware</option>
+                      <option>SAN/NAS Storage</option>
+                      <option selected>Cisco Networking/Switch</option>
+                      <option>Software Evaluation License</option>
+                    </select>
+                  </td>
+                  <td>
+                    <textarea class="form-input form-textarea resource-spec" rows="2">Cisco Catalyst 9300 — 48-port PoE+ — VLAN segmentation for 3 branch simulations</textarea>
+                  </td>
+                  <td>
+                    <input type="number" class="form-input resource-qty" value="3" min="1" />
+                  </td>
+                  <td>
+                    <button class="btn-remove" onclick="removeRow(this)">✕</button>
+                  </td>
+                </tr>
+                <tr class="resource-row">
+                  <td>
+                    <select class="form-input form-select resource-select">
+                      <option>Virtual Machine</option>
+                      <option>Physical Server Hardware</option>
+                      <option>SAN/NAS Storage</option>
+                      <option>Cisco Networking/Switch</option>
+                      <option selected>Software Evaluation License</option>
+                    </select>
+                  </td>
+                  <td>
+                    <textarea class="form-input form-textarea resource-spec" rows="2">Viptela vManage + vBond + vSmart — 90-day eval — Cisco SD-WAN controller suite</textarea>
+                  </td>
+                  <td>
+                    <input type="number" class="form-input resource-qty" value="1" min="1" />
+                  </td>
+                  <td>
+                    <button class="btn-remove" onclick="removeRow(this)">✕</button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <button class="btn-add-resource" onclick="addResourceRow()">
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M7 2v10M2 7h10" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+            Add Resource
+          </button>
+        </div>
+
+        <!-- Additional notes -->
+        <div class="form-card-body form-card-body-border">
+          <div class="form-group">
+            <label class="form-label">Additional Notes / Special Requirements</label>
+            <textarea id="form-notes" class="form-input form-textarea" rows="3" placeholder="Network isolation requirements, compliance considerations, lab access scheduling…">All VMs must be isolated in a dedicated VLAN. Lab access required for site engineers Mon–Fri 08:00–18:00 AEST. Compliance: no customer data to be stored in PoC environment.</textarea>
+          </div>
+        </div>
+      </div>
+
+      <!-- Form actions -->
+      <div class="form-actions">
+        <button class="btn-ghost">Cancel</button>
+        <div class="form-actions-right">
+          <button type="button" id="saveDraftBtn" class="btn-outline">
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 10V4a1 1 0 011-1h6l3 3v7a1 1 0 01-1 1H3a1 1 0 01-1-1z" stroke="currentColor" stroke-width="1.4"/><path d="M8 3v3h3" stroke="currentColor" stroke-width="1.4"/></svg>
+            Save Draft
+          </button>
+          <button class="btn-primary" onclick="navigateTo('dashboard')">
+            Submit Request
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2.5 7h9M8 3.5L11.5 7 8 10.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ============================================================
+     PAGE 4 — ENGINEERING KANBAN BOARD
+     ============================================================ -->
+<div id="page-kanban" class="page">
+  <aside class="sidebar">
+    <div class="sidebar-logo">
+      <img class="sidebar-logo-mark" src="assests/logo.jpeg" alt="EdgeNet Logo">
+      <div class="sidebar-logo-text">
+        <span class="sidebar-brand">EdgeNet</span>
+        <span class="sidebar-tagline">Client Portal</span>
+      </div>
+    </div>
+    <nav class="sidebar-nav">
+      <div class="nav-section-label">Main</div>
+      <a class="nav-item" onclick="navigateTo('dashboard')">
+        <svg class="nav-icon" viewBox="0 0 20 20" fill="none"><rect x="2" y="2" width="7" height="7" rx="1.5" fill="currentColor"/><rect x="11" y="2" width="7" height="7" rx="1.5" fill="currentColor" opacity=".5"/><rect x="2" y="11" width="7" height="7" rx="1.5" fill="currentColor" opacity=".5"/><rect x="11" y="11" width="7" height="7" rx="1.5" fill="currentColor"/></svg>
+        Dashboard
+      </a>
+      <a class="nav-item" onclick="navigateTo('form')">
+        <svg class="nav-icon" viewBox="0 0 20 20" fill="none"><path d="M10 4v12M4 10h12" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+        New PoC Request
+      </a>
+      <a class="nav-item active" onclick="navigateTo('kanban')">
+        <svg class="nav-icon" viewBox="0 0 20 20" fill="none"><rect x="2" y="4" width="4" height="13" rx="1" fill="currentColor" opacity=".4"/><rect x="8" y="4" width="4" height="9" rx="1" fill="currentColor"/><rect x="14" y="4" width="4" height="11" rx="1" fill="currentColor" opacity=".6"/></svg>
+        Kanban Board
+      </a>
+      <div class="nav-section-label">Management</div>
+      <a class="nav-item" onclick="navigateTo('details')">
+        <svg class="nav-icon" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="7.5" stroke="currentColor" stroke-width="1.5"/><path d="M10 9v5M10 6.5v.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+        Request Details
+      </a>
+      <a class="nav-item" onclick="navigateTo('reports')"><svg class="nav-icon" viewBox="0 0 20 20" fill="none"><path d="M3 5h14M3 10h14M3 15h8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>Reports</a>
+    </nav>
+    <div class="sidebar-user">
+      <img class="user-avatar user-avatar-img" src="assests/profile.jpg" alt="User profile picture">
+      <div class="user-info">
+        <span class="user-name"></span>
+        <span class="user-role"></span>
+      </div>
+      <button class="btn-logout" onclick="navigateTo('login')">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M6 2H3a1 1 0 00-1 1v10a1 1 0 001 1h3M10 11l3-3-3-3M13 8H6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+    </div>
+  </aside>
+
+  <div class="main-content kanban-main">
+    <header class="topbar">
+      <div class="topbar-left">
+        <h2 class="page-title">Engineering Kanban Board</h2>
+        <span class="breadcrumb">Home · Engineering · Board View</span>
+      </div>
+      <div class="topbar-right">
+        <select class="filter-select">
+          <option>All Engineers</option>
+          <option>Raj Kumar</option>
+          <option>Sarah Chen</option>
+          <option>David Miller</option>
+          <option>Aisha Patel</option>
+        </select>
+        <button class="btn-primary" onclick="navigateTo('form')">+ New Request</button>
+        <img class="topbar-avatar user-avatar-img" src="assests/profile.jpg" alt="User profile picture">
+      </div>
+    </header>
+
+    <div class="kanban-board">
+      <!-- Column 1: New Request -->
+      <div class="kanban-col">
+        <div class="kanban-col-header kanban-header-blue">
+          <div class="kanban-col-title">
+            <span class="kanban-col-dot kanban-dot-blue"></span>
+            New Request
+          </div>
+          <span class="kanban-col-count">3</span>
+        </div>
+        <div class="kanban-cards">
+          <div class="kanban-card" onclick="navigateTo('details')">
+            <div class="card-top-accent card-accent-blue"></div>
+            <div class="kanban-card-header">
+              <span class="kanban-badge kanban-badge-blue">New</span>
+              <span class="kanban-card-id">#POC-2047</span>
+            </div>
+            <h5 class="kanban-card-project">OT/IT Network Segmentation</h5>
+            <p class="kanban-card-client">Solaris Energy Ltd.</p>
+            <div class="kanban-card-meta">
+              <span class="meta-row"><svg width="11" height="11" viewBox="0 0 12 12" fill="none"><circle cx="6" cy="6" r="5" stroke="currentColor" stroke-width="1.3"/><path d="M6 3.5V6l1.5 1.5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>Due Jul 1, 2025</span>
+            </div>
+            <div class="kanban-card-footer">
+              <div class="kanban-eng"><span class="kanban-eng-avatar">AP</span><span>Aisha Patel</span></div>
+              <span class="kanban-priority kanban-priority-high">High</span>
+            </div>
+          </div>
+
+          <div class="kanban-card" onclick="navigateTo('details')">
+            <div class="card-top-accent card-accent-blue"></div>
+            <div class="kanban-card-header">
+              <span class="kanban-badge kanban-badge-blue">New</span>
+              <span class="kanban-card-id">#POC-2051</span>
+            </div>
+            <h5 class="kanban-card-project">Industrial Firewall Refresh</h5>
+            <p class="kanban-card-client">Titan Manufacturing</p>
+            <div class="kanban-card-meta">
+              <span class="meta-row"><svg width="11" height="11" viewBox="0 0 12 12" fill="none"><circle cx="6" cy="6" r="5" stroke="currentColor" stroke-width="1.3"/><path d="M6 3.5V6l1.5 1.5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>Due Jul 10, 2025</span>
+            </div>
+            <div class="kanban-card-footer">
+              <div class="kanban-eng"><span class="kanban-eng-avatar">BW</span><span>Ben Walsh</span></div>
+              <span class="kanban-priority kanban-priority-std">Standard</span>
+            </div>
+          </div>
+
+          <div class="kanban-card" onclick="navigateTo('details')">
+            <div class="card-top-accent card-accent-blue"></div>
+            <div class="kanban-card-header">
+              <span class="kanban-badge kanban-badge-blue">New</span>
+              <span class="kanban-card-id">#POC-2055</span>
+            </div>
+            <h5 class="kanban-card-project">SD-WAN Resilience PoC</h5>
+            <p class="kanban-card-client">NovaBridge Corp.</p>
+            <div class="kanban-card-meta">
+              <span class="meta-row"><svg width="11" height="11" viewBox="0 0 12 12" fill="none"><circle cx="6" cy="6" r="5" stroke="currentColor" stroke-width="1.3"/><path d="M6 3.5V6l1.5 1.5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>Due Aug 1, 2025</span>
+            </div>
+            <div class="kanban-card-footer">
+              <div class="kanban-eng"><span class="kanban-eng-avatar">TN</span><span>Tom Nguyen</span></div>
+              <span class="kanban-priority kanban-priority-high">High</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Column 2: Infrastructure Provisioning -->
+      <div class="kanban-col">
+        <div class="kanban-col-header kanban-header-orange">
+          <div class="kanban-col-title">
+            <span class="kanban-col-dot kanban-dot-orange"></span>
+            Infra Provisioning
+          </div>
+          <span class="kanban-col-count">4</span>
+        </div>
+        <div class="kanban-cards">
+          <div class="kanban-card" onclick="navigateTo('details')">
+            <div class="card-top-accent card-accent-orange"></div>
+            <div class="kanban-card-header">
+              <span class="kanban-badge kanban-badge-orange">Provisioning</span>
+              <span class="kanban-card-id">#POC-2038</span>
+            </div>
+            <h5 class="kanban-card-project">Zero Trust Network Pilot</h5>
+            <p class="kanban-card-client">Meridian Financial</p>
+            <div class="kanban-card-meta">
+              <span class="meta-row"><svg width="11" height="11" viewBox="0 0 12 12" fill="none"><circle cx="6" cy="6" r="5" stroke="currentColor" stroke-width="1.3"/><path d="M6 3.5V6l1.5 1.5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>Due Jun 10, 2025</span>
+            </div>
+            <div class="kanban-card-footer">
+              <div class="kanban-eng"><span class="kanban-eng-avatar">RK</span><span>Raj Kumar</span></div>
+              <span class="kanban-priority kanban-priority-crit">Critical</span>
+            </div>
+          </div>
+
+          <div class="kanban-card" onclick="navigateTo('details')">
+            <div class="card-top-accent card-accent-orange"></div>
+            <div class="kanban-card-header">
+              <span class="kanban-badge kanban-badge-orange">Provisioning</span>
+              <span class="kanban-card-id">#POC-2041</span>
+            </div>
+            <h5 class="kanban-card-project">Medical IoT Segmentation</h5>
+            <p class="kanban-card-client">Harbour Health Systems</p>
+            <div class="kanban-card-meta">
+              <span class="meta-row"><svg width="11" height="11" viewBox="0 0 12 12" fill="none"><circle cx="6" cy="6" r="5" stroke="currentColor" stroke-width="1.3"/><path d="M6 3.5V6l1.5 1.5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>Due Jun 22, 2025</span>
+            </div>
+            <div class="kanban-card-footer">
+              <div class="kanban-eng"><span class="kanban-eng-avatar">LJ</span><span>Lisa Johnson</span></div>
+              <span class="kanban-priority kanban-priority-high">High</span>
+            </div>
+          </div>
+
+          <div class="kanban-card" onclick="navigateTo('details')">
+            <div class="card-top-accent card-accent-orange"></div>
+            <div class="kanban-card-header">
+              <span class="kanban-badge kanban-badge-orange">Provisioning</span>
+              <span class="kanban-card-id">#POC-2044</span>
+            </div>
+            <h5 class="kanban-card-project">Cloud Backup Infrastructure</h5>
+            <p class="kanban-card-client">Vertex Data Services</p>
+            <div class="kanban-card-meta">
+              <span class="meta-row"><svg width="11" height="11" viewBox="0 0 12 12" fill="none"><circle cx="6" cy="6" r="5" stroke="currentColor" stroke-width="1.3"/><path d="M6 3.5V6l1.5 1.5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>Due Jul 5, 2025</span>
+            </div>
+            <div class="kanban-card-footer">
+              <div class="kanban-eng"><span class="kanban-eng-avatar">DM</span><span>David Miller</span></div>
+              <span class="kanban-priority kanban-priority-std">Standard</span>
+            </div>
+          </div>
+
+          <div class="kanban-card" onclick="navigateTo('details')">
+            <div class="card-top-accent card-accent-orange"></div>
+            <div class="kanban-card-header">
+              <span class="kanban-badge kanban-badge-orange">Provisioning</span>
+              <span class="kanban-card-id">#POC-2046</span>
+            </div>
+            <h5 class="kanban-card-project">Dual-WAN Failover Test</h5>
+            <p class="kanban-card-client">Summit Retail Holdings</p>
+            <div class="kanban-card-meta">
+              <span class="meta-row"><svg width="11" height="11" viewBox="0 0 12 12" fill="none"><circle cx="6" cy="6" r="5" stroke="currentColor" stroke-width="1.3"/><path d="M6 3.5V6l1.5 1.5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>Due Jun 28, 2025</span>
+            </div>
+            <div class="kanban-card-footer">
+              <div class="kanban-eng"><span class="kanban-eng-avatar">SC</span><span>Sarah Chen</span></div>
+              <span class="kanban-priority kanban-priority-high">High</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Column 3: In Testing -->
+      <div class="kanban-col">
+        <div class="kanban-col-header kanban-header-purple">
+          <div class="kanban-col-title">
+            <span class="kanban-col-dot kanban-dot-purple"></span>
+            In Testing
+          </div>
+          <span class="kanban-col-count">3</span>
+        </div>
+        <div class="kanban-cards">
+          <div class="kanban-card" onclick="navigateTo('details')">
+            <div class="card-top-accent card-accent-purple"></div>
+            <div class="kanban-card-header">
+              <span class="kanban-badge kanban-badge-purple">Testing</span>
+              <span class="kanban-card-id">#POC-2030</span>
+            </div>
+            <h5 class="kanban-card-project">SD-WAN Edge Deployment</h5>
+            <p class="kanban-card-client">NovaBridge Corp.</p>
+            <div class="kanban-card-meta">
+              <span class="meta-row"><svg width="11" height="11" viewBox="0 0 12 12" fill="none"><circle cx="6" cy="6" r="5" stroke="currentColor" stroke-width="1.3"/><path d="M6 3.5V6l1.5 1.5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>Due May 15, 2025</span>
+            </div>
+            <div class="kanban-card-footer">
+              <div class="kanban-eng"><span class="kanban-eng-avatar">SC</span><span>Sarah Chen</span></div>
+              <span class="kanban-priority kanban-priority-high">High</span>
+            </div>
+          </div>
+
+          <div class="kanban-card" onclick="navigateTo('details')">
+            <div class="card-top-accent card-accent-purple"></div>
+            <div class="kanban-card-header">
+              <span class="kanban-badge kanban-badge-purple">Testing</span>
+              <span class="kanban-card-id">#POC-2032</span>
+            </div>
+            <h5 class="kanban-card-project">PAM &amp; Privilege Access PoC</h5>
+            <p class="kanban-card-client">ClearPath Insurance</p>
+            <div class="kanban-card-meta">
+              <span class="meta-row"><svg width="11" height="11" viewBox="0 0 12 12" fill="none"><circle cx="6" cy="6" r="5" stroke="currentColor" stroke-width="1.3"/><path d="M6 3.5V6l1.5 1.5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>Due May 28, 2025</span>
+            </div>
+            <div class="kanban-card-footer">
+              <div class="kanban-eng"><span class="kanban-eng-avatar">MO</span><span>Maria Okonkwo</span></div>
+              <span class="kanban-priority kanban-priority-crit">Critical</span>
+            </div>
+          </div>
+
+          <div class="kanban-card" onclick="navigateTo('details')">
+            <div class="card-top-accent card-accent-purple"></div>
+            <div class="kanban-card-header">
+              <span class="kanban-badge kanban-badge-purple">Testing</span>
+              <span class="kanban-card-id">#POC-2035</span>
+            </div>
+            <h5 class="kanban-card-project">Endpoint Detection &amp; Response</h5>
+            <p class="kanban-card-client">Ironclad Logistics</p>
+            <div class="kanban-card-meta">
+              <span class="meta-row"><svg width="11" height="11" viewBox="0 0 12 12" fill="none"><circle cx="6" cy="6" r="5" stroke="currentColor" stroke-width="1.3"/><path d="M6 3.5V6l1.5 1.5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>Due Jun 3, 2025</span>
+            </div>
+            <div class="kanban-card-footer">
+              <div class="kanban-eng"><span class="kanban-eng-avatar">JL</span><span>James Lin</span></div>
+              <span class="kanban-priority kanban-priority-std">Standard</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Column 4: Completed -->
+      <div class="kanban-col">
+        <div class="kanban-col-header kanban-header-green">
+          <div class="kanban-col-title">
+            <span class="kanban-col-dot kanban-dot-green"></span>
+            Completed
+          </div>
+          <span class="kanban-col-count">3</span>
+        </div>
+        <div class="kanban-cards">
+          <div class="kanban-card kanban-card-dim" onclick="navigateTo('details')">
+            <div class="card-top-accent card-accent-green"></div>
+            <div class="kanban-card-header">
+              <span class="kanban-badge kanban-badge-green">Done</span>
+              <span class="kanban-card-id">#POC-2011</span>
+            </div>
+            <h5 class="kanban-card-project">Hybrid Cloud Migration PoC</h5>
+            <p class="kanban-card-client">Apex Logistics</p>
+            <div class="kanban-card-meta">
+              <span class="meta-row"><svg width="11" height="11" viewBox="0 0 12 12" fill="none"><circle cx="6" cy="6" r="5" stroke="currentColor" stroke-width="1.3"/><path d="M6 3.5V6l1.5 1.5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>Ended Apr 20, 2025</span>
+            </div>
+            <div class="kanban-card-footer">
+              <div class="kanban-eng"><span class="kanban-eng-avatar">DM</span><span>David Miller</span></div>
+              <span class="kanban-check">✓ Approved</span>
+            </div>
+          </div>
+
+          <div class="kanban-card kanban-card-dim" onclick="navigateTo('details')">
+            <div class="card-top-accent card-accent-green"></div>
+            <div class="kanban-card-header">
+              <span class="kanban-badge kanban-badge-green">Done</span>
+              <span class="kanban-card-id">#POC-2018</span>
+            </div>
+            <h5 class="kanban-card-project">5G Private Network Trial</h5>
+            <p class="kanban-card-client">Greenfield Telecom</p>
+            <div class="kanban-card-meta">
+              <span class="meta-row"><svg width="11" height="11" viewBox="0 0 12 12" fill="none"><circle cx="6" cy="6" r="5" stroke="currentColor" stroke-width="1.3"/><path d="M6 3.5V6l1.5 1.5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>Ended Feb 15, 2025</span>
+            </div>
+            <div class="kanban-card-footer">
+              <div class="kanban-eng"><span class="kanban-eng-avatar">JL</span><span>James Lin</span></div>
+              <span class="kanban-check">✓ Approved</span>
+            </div>
+          </div>
+
+          <div class="kanban-card kanban-card-dim" onclick="navigateTo('details')">
+            <div class="card-top-accent card-accent-green"></div>
+            <div class="kanban-card-header">
+              <span class="kanban-badge kanban-badge-green">Done</span>
+              <span class="kanban-card-id">#POC-2022</span>
+            </div>
+            <h5 class="kanban-card-project">Multi-Cloud IAM Integration</h5>
+            <p class="kanban-card-client">Atlas Capital Group</p>
+            <div class="kanban-card-meta">
+              <span class="meta-row"><svg width="11" height="11" viewBox="0 0 12 12" fill="none"><circle cx="6" cy="6" r="5" stroke="currentColor" stroke-width="1.3"/><path d="M6 3.5V6l1.5 1.5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>Ended Mar 8, 2025</span>
+            </div>
+            <div class="kanban-card-footer">
+              <div class="kanban-eng"><span class="kanban-eng-avatar">AP</span><span>Aisha Patel</span></div>
+              <span class="kanban-check">✓ Approved</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Column 5: Decommissioned -->
+      <div class="kanban-col">
+        <div class="kanban-col-header kanban-header-gray">
+          <div class="kanban-col-title">
+            <span class="kanban-col-dot kanban-dot-gray"></span>
+            Decommissioned
+          </div>
+          <span class="kanban-col-count">2</span>
+        </div>
+        <div class="kanban-cards">
+          <div class="kanban-card kanban-card-arch" onclick="navigateTo('details')">
+            <div class="card-top-accent card-accent-gray"></div>
+            <div class="kanban-card-header">
+              <span class="kanban-badge kanban-badge-gray">Archived</span>
+              <span class="kanban-card-id">#POC-1998</span>
+            </div>
+            <h5 class="kanban-card-project">SASE Platform Evaluation</h5>
+            <p class="kanban-card-client">Quantum Retail Group</p>
+            <div class="kanban-card-meta">
+              <span class="meta-row"><svg width="11" height="11" viewBox="0 0 12 12" fill="none"><circle cx="6" cy="6" r="5" stroke="currentColor" stroke-width="1.3"/><path d="M6 3.5V6l1.5 1.5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>Ended Jan 5, 2025</span>
+            </div>
+            <div class="kanban-card-footer">
+              <div class="kanban-eng"><span class="kanban-eng-avatar">TN</span><span>Tom Nguyen</span></div>
+              <span class="kanban-arch-label">Decommissioned</span>
+            </div>
+          </div>
+
+          <div class="kanban-card kanban-card-arch" onclick="navigateTo('details')">
+            <div class="card-top-accent card-accent-gray"></div>
+            <div class="kanban-card-header">
+              <span class="kanban-badge kanban-badge-gray">Archived</span>
+              <span class="kanban-card-id">#POC-2003</span>
+            </div>
+            <h5 class="kanban-card-project">Legacy WAN Replacement</h5>
+            <p class="kanban-card-client">Orion Transport Co.</p>
+            <div class="kanban-card-meta">
+              <span class="meta-row"><svg width="11" height="11" viewBox="0 0 12 12" fill="none"><circle cx="6" cy="6" r="5" stroke="currentColor" stroke-width="1.3"/><path d="M6 3.5V6l1.5 1.5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>Ended Nov 30, 2024</span>
+            </div>
+            <div class="kanban-card-footer">
+              <div class="kanban-eng"><span class="kanban-eng-avatar">RK</span><span>Raj Kumar</span></div>
+              <span class="kanban-arch-label">Decommissioned</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ============================================================
+     PAGE 5 — REQUEST DETAILS VIEW
+     ============================================================ -->
+<div id="page-details" class="page">
+  <aside class="sidebar">
+    <div class="sidebar-logo">
+      <img class="sidebar-logo-mark" src="assests/logo.jpeg" alt="EdgeNet Logo">
+      <div class="sidebar-logo-text">
+        <span class="sidebar-brand">EdgeNet</span>
+        <span class="sidebar-tagline">Client Portal</span>
+      </div>
+    </div>
+    <nav class="sidebar-nav">
+      <div class="nav-section-label">Main</div>
+      <a class="nav-item" onclick="navigateTo('dashboard')">
+        <svg class="nav-icon" viewBox="0 0 20 20" fill="none"><rect x="2" y="2" width="7" height="7" rx="1.5" fill="currentColor"/><rect x="11" y="2" width="7" height="7" rx="1.5" fill="currentColor" opacity=".5"/><rect x="2" y="11" width="7" height="7" rx="1.5" fill="currentColor" opacity=".5"/><rect x="11" y="11" width="7" height="7" rx="1.5" fill="currentColor"/></svg>
+        Dashboard
+      </a>
+      <a class="nav-item" onclick="navigateTo('form')">
+        <svg class="nav-icon" viewBox="0 0 20 20" fill="none"><path d="M10 4v12M4 10h12" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+        New PoC Request
+      </a>
+      <a class="nav-item" onclick="navigateTo('kanban')">
+        <svg class="nav-icon" viewBox="0 0 20 20" fill="none"><rect x="2" y="4" width="4" height="13" rx="1" fill="currentColor" opacity=".4"/><rect x="8" y="4" width="4" height="9" rx="1" fill="currentColor"/><rect x="14" y="4" width="4" height="11" rx="1" fill="currentColor" opacity=".6"/></svg>
+        Kanban Board
+      </a>
+      <div class="nav-section-label">Management</div>
+      <a class="nav-item active" onclick="navigateTo('details')">
+        <svg class="nav-icon" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="7.5" stroke="currentColor" stroke-width="1.5"/><path d="M10 9v5M10 6.5v.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+        Request Details
+      </a>
+      <a class="nav-item" onclick="navigateTo('reports')"><svg class="nav-icon" viewBox="0 0 20 20" fill="none"><path d="M3 5h14M3 10h14M3 15h8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>Reports</a>
+    </nav>
+    <div class="sidebar-user">
+      <img class="user-avatar user-avatar-img" src="assests/profile.jpg" alt="User profile picture">
+      <div class="user-info">
+        <span class="user-name"></span>
+        <span class="user-role"></span>
+      </div>
+      <button class="btn-logout" onclick="navigateTo('login')">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M6 2H3a1 1 0 00-1 1v10a1 1 0 001 1h3M10 11l3-3-3-3M13 8H6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+    </div>
+  </aside>
+
+  <div class="main-content">
+    <header class="topbar">
+      <div class="topbar-left">
+        <h2 class="page-title">Request Details</h2>
+        <span class="breadcrumb">Home · Dashboard · <strong id="detail-breadcrumb-id">#POC-2030</strong></span>
+      </div>
+      <div class="topbar-right">
+        <button class="btn-outline" onclick="navigateTo('dashboard')">← Back</button>
+        <button class="btn-outline">Export PDF</button>
+        <button class="btn-primary am-only" id="assignEngineerBtn">Assign Engineer</button>
+        <img class="topbar-avatar user-avatar-img" src="assests/profile.jpg" alt="User profile picture">
+      </div>
+    </header>
+
+    <div class="content-body">
+      <!-- Status banner -->
+      <div class="status-banner status-banner-purple" id="detail-banner">
+        <div class="status-banner-left">
+          <span class="status-banner-id" id="detail-banner-id">#POC-2030</span>
+          <span class="badge badge-purple" id="detail-banner-badge">In Testing</span>
+        </div>
+        <div class="status-banner-actions" id="detail-banner-actions"></div>
+      </div>
+
+      <!-- Two-column layout -->
+      <div class="details-grid">
+        <!-- Left column -->
+        <div class="details-left">
+          <!-- Project Info -->
+          <div class="detail-card">
+            <h4 class="detail-card-title">Project Information</h4>
+            <div class="detail-fields" id="detail-fields">
+              <div class="detail-field">
+                <span class="detail-label">Client Name</span>
+                <span class="detail-value detail-value-strong">NovaBridge Corp.</span>
+              </div>
+              <div class="detail-field">
+                <span class="detail-label">Project Name</span>
+                <span class="detail-value">SD-WAN Edge Deployment</span>
+              </div>
+              <div class="detail-field">
+                <span class="detail-label">Account Manager</span>
+                <span class="detail-value"><img class="detail-avatar user-avatar-img" src="assests/profile.jpg" alt="User profile picture"></span>
+              </div>
+              <div class="detail-field">
+                <span class="detail-label">Assigned Engineer</span>
+                <span class="detail-value"><span class="detail-avatar detail-avatar-eng">SC</span>Sarah Chen</span>
+              </div>
+              <div class="detail-field">
+                <span class="detail-label">Client Industry</span>
+                <span class="detail-value">Financial Services</span>
+              </div>
+              <div class="detail-field">
+                <span class="detail-label">Priority</span>
+                <span class="detail-value"><span class="kanban-priority kanban-priority-high" style="font-size:11px">High</span></span>
+              </div>
+              <div class="detail-field">
+                <span class="detail-label">Start Date</span>
+                <span class="detail-value">February 15, 2025</span>
+              </div>
+              <div class="detail-field">
+                <span class="detail-label">End Date</span>
+                <span class="detail-value">May 15, 2025</span>
+              </div>
+              <div class="detail-field">
+                <span class="detail-label">Current Status</span>
+                <span class="detail-value"><span class="badge badge-purple">In Testing</span></span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Resource Requirements -->
+          <div class="detail-card">
+            <h4 class="detail-card-title">Resource Requirements</h4>
+            <div class="table-wrapper">
+              <table class="data-table data-table-sm">
+                <thead>
+                  <tr>
+                    <th>Resource Type</th>
+                    <th>Specifications</th>
+                    <th>Qty</th>
+                    <th>Status</th>
+                  </tr>
+                </thead>
+                <tbody id="detail-resources"></tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- Objectives -->
+          <div class="detail-card">
+            <h4 class="detail-card-title">Project Objectives</h4>
+            <p class="detail-prose" id="detail-objectives">—</p>
+            <div class="objectives-tags" id="detail-objectives-tags"></div>
+          </div>
+        </div>
+
+        <!-- Right column: Timeline -->
+        <div class="details-right">
+          <div class="detail-card">
+            <h4 class="detail-card-title">Activity Timeline</h4>
+            <div class="timeline">
+              <div class="timeline-item timeline-done">
+                <div class="timeline-dot timeline-dot-done">
+                  <svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M2 5l2 2 4-4" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </div>
+                <div class="timeline-content">
+                  <div class="timeline-header">
+                    <span class="timeline-event">Request Submitted</span>
+                    <span class="timeline-date" id="detail-submit-date">Feb 3, 2025</span>
+                  </div>
+                  <p class="timeline-desc" id="detail-submit-desc"></p>
+                </div>
+              </div>
+
+              <div class="timeline-connector timeline-connector-done"></div>
+
+              <div class="timeline-item timeline-done">
+                <div class="timeline-dot timeline-dot-done">
+                  <svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M2 5l2 2 4-4" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </div>
+                <div class="timeline-content">
+                  <div class="timeline-header">
+                    <span class="timeline-event">Request Approved</span>
+                    <span class="timeline-date">Feb 7, 2025</span>
+                  </div>
+                  <p class="timeline-desc">Approved by Engineering Manager Kevin O'Donnell. Priority set to High.</p>
+                </div>
+              </div>
+
+              <div class="timeline-connector timeline-connector-done"></div>
+
+              <div class="timeline-item timeline-done">
+                <div class="timeline-dot timeline-dot-done">
+                  <svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M2 5l2 2 4-4" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </div>
+                <div class="timeline-content">
+                  <div class="timeline-header">
+                    <span class="timeline-event">Engineer Assigned</span>
+                    <span class="timeline-date">Feb 10, 2025</span>
+                  </div>
+                  <p class="timeline-desc">Sarah Chen assigned as lead engineer. Kickoff call scheduled with NovaBridge IT team.</p>
+                </div>
+              </div>
+
+              <div class="timeline-connector timeline-connector-done"></div>
+
+              <div class="timeline-item timeline-done">
+                <div class="timeline-dot timeline-dot-done">
+                  <svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M2 5l2 2 4-4" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </div>
+                <div class="timeline-content">
+                  <div class="timeline-header">
+                    <span class="timeline-event">Infrastructure Provisioning Started</span>
+                    <span class="timeline-date">Feb 15, 2025</span>
+                  </div>
+                  <p class="timeline-desc">Lab environment allocated in Rack Bay 4B. VMs deployed, Cisco switches configured. Storage arrays allocated.</p>
+                </div>
+              </div>
+
+              <div class="timeline-connector timeline-connector-done"></div>
+
+              <div class="timeline-item timeline-done">
+                <div class="timeline-dot timeline-dot-done">
+                  <svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M2 5l2 2 4-4" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </div>
+                <div class="timeline-content">
+                  <div class="timeline-header">
+                    <span class="timeline-event">Testing Started</span>
+                    <span class="timeline-date">Mar 20, 2025</span>
+                  </div>
+                  <p class="timeline-desc">Phase 1 testing underway. Failover scenarios running. NovaBridge technical team granted lab access.</p>
+                </div>
+              </div>
+
+              <div class="timeline-connector timeline-connector-pending"></div>
+
+              <div class="timeline-item timeline-pending">
+                <div class="timeline-dot timeline-dot-pending">
+                  <svg width="10" height="10" viewBox="0 0 10 10" fill="none"><circle cx="5" cy="5" r="2" fill="currentColor"/></svg>
+                </div>
+                <div class="timeline-content">
+                  <div class="timeline-header">
+                    <span class="timeline-event">Phase 2 Testing</span>
+                    <span class="timeline-date">In Progress</span>
+                  </div>
+                  <p class="timeline-desc">Multi-site failover scenarios. Awaiting Viptela software eval license activation to proceed.</p>
+                </div>
+              </div>
+
+              <div class="timeline-connector"></div>
+
+              <div class="timeline-item timeline-future">
+                <div class="timeline-dot timeline-dot-future"></div>
+                <div class="timeline-content">
+                  <div class="timeline-header">
+                    <span class="timeline-event">Completed</span>
+                    <span class="timeline-date">Expected May 15, 2025</span>
+                  </div>
+                  <p class="timeline-desc">Final test report to be delivered. Debrief session scheduled with client stakeholders.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Quick stats -->
+          <div class="detail-card detail-stats-card">
+            <h4 class="detail-card-title">Engagement Metrics</h4>
+            <div class="eng-metrics">
+              <div class="metric-item">
+                <span class="metric-value">89<small>%</small></span>
+                <span class="metric-label">Milestones Complete</span>
+              </div>
+              <div class="metric-item">
+                <span class="metric-value">31</span>
+                <span class="metric-label">Days Active</span>
+              </div>
+              <div class="metric-item">
+                <span class="metric-value">4/5</span>
+                <span class="metric-label">Resources Ready</span>
+              </div>
+            </div>
+            <div class="progress-bar-wrap">
+              <div class="progress-bar-label">
+                <span>Overall Progress</span>
+                <span>68%</span>
+              </div>
+              <div class="progress-bar-track">
+                <div class="progress-bar-fill" style="width:68%"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================
+     PAGE 5 — ENGINEERS (Account Manager only)
+     ============================================================ -->
+<div id="page-engineers" class="page">
+  <aside class="sidebar">
+    <div class="sidebar-logo">
+      <img class="sidebar-logo-mark" src="assests/logo.jpeg" alt="EdgeNet Logo">
+      <div class="sidebar-logo-text">
+        <span class="sidebar-brand">EdgeNet</span>
+        <span class="sidebar-tagline">Client Portal</span>
+      </div>
+    </div>
+    <nav class="sidebar-nav">
+      <div class="nav-section-label">Main</div>
+      <a class="nav-item" onclick="navigateTo('dashboard')">
+        <svg class="nav-icon" viewBox="0 0 20 20" fill="none"><rect x="2" y="2" width="7" height="7" rx="1.5" fill="currentColor"/><rect x="11" y="2" width="7" height="7" rx="1.5" fill="currentColor" opacity=".5"/><rect x="2" y="11" width="7" height="7" rx="1.5" fill="currentColor" opacity=".5"/><rect x="11" y="11" width="7" height="7" rx="1.5" fill="currentColor"/></svg>
+        Dashboard
+      </a>
+      <a class="nav-item" onclick="navigateTo('form')">
+        <svg class="nav-icon" viewBox="0 0 20 20" fill="none"><path d="M10 4v12M4 10h12" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+        New PoC Request
+      </a>
+      <a class="nav-item" onclick="navigateTo('kanban')">
+        <svg class="nav-icon" viewBox="0 0 20 20" fill="none"><rect x="2" y="4" width="4" height="13" rx="1" fill="currentColor" opacity=".4"/><rect x="8" y="4" width="4" height="9" rx="1" fill="currentColor"/><rect x="14" y="4" width="4" height="11" rx="1" fill="currentColor" opacity=".6"/></svg>
+        Kanban Board
+      </a>
+      <div class="nav-section-label">Management</div>
+      <a class="nav-item" onclick="navigateTo('details')">
+        <svg class="nav-icon" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="7.5" stroke="currentColor" stroke-width="1.5"/><path d="M10 9v5M10 6.5v.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+        Request Details
+      </a>
+      <a class="nav-item active am-only" onclick="navigateTo('engineers')">
+        <svg class="nav-icon" viewBox="0 0 20 20" fill="none"><path d="M4 4h12v2a4 4 0 010 8v2H4v-2a4 4 0 010-8V4z" stroke="currentColor" stroke-width="1.5"/></svg>
+        Engineers
+      </a>
+      <a class="nav-item" onclick="navigateTo('reports')"><svg class="nav-icon" viewBox="0 0 20 20" fill="none"><path d="M3 5h14M3 10h14M3 15h8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>Reports</a>
+    </nav>
+    <div class="sidebar-user">
+      <img class="user-avatar user-avatar-img" src="assests/profile.jpg" alt="User profile picture">
+      <div class="user-info">
+        <span class="user-name"></span>
+        <span class="user-role"></span>
+      </div>
+      <button class="btn-logout" onclick="navigateTo('login')">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M6 2H3a1 1 0 00-1 1v10a1 1 0 001 1h3M10 11l3-3-3-3M13 8H6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+    </div>
+  </aside>
+
+  <div class="main-content">
+    <header class="topbar">
+      <div class="topbar-left">
+        <h2 class="page-title">Engineers</h2>
+        <span class="breadcrumb">Home · Management · Engineers</span>
+      </div>
+      <div class="topbar-right">
+        <button class="btn-outline" onclick="navigateTo('dashboard')">← Back to Dashboard</button>
+        <img class="topbar-avatar user-avatar-img" src="assests/profile.jpg" alt="User profile picture">
+      </div>
+    </header>
+
+    <div class="content-body">
+      <div class="table-card">
+        <div class="table-card-header">
+          <div>
+            <h4 class="table-card-title">Engineering Team</h4>
+            <p class="table-card-sub">All engineers registered in the portal and their current PoC load</p>
+          </div>
+          <div class="table-filters">
+            <span class="table-count" id="engineers-count">0 engineers</span>
+          </div>
+        </div>
+        <div class="table-wrapper">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Engineer</th>
+                <th>Email</th>
+                <th>Assigned PoCs</th>
+                <th>Member Since</th>
+              </tr>
+            </thead>
+            <tbody id="engineers-tbody"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ============================================================
+     PAGE 6 — REPORTS
+     ============================================================ -->
+<div id="page-reports" class="page">
+  <aside class="sidebar">
+    <div class="sidebar-logo">
+      <img class="sidebar-logo-mark" src="assests/logo.jpeg" alt="EdgeNet Logo">
+      <div class="sidebar-logo-text">
+        <span class="sidebar-brand">EdgeNet</span>
+        <span class="sidebar-tagline">Client Portal</span>
+      </div>
+    </div>
+    <nav class="sidebar-nav">
+      <div class="nav-section-label">Main</div>
+      <a class="nav-item" onclick="navigateTo('dashboard')">
+        <svg class="nav-icon" viewBox="0 0 20 20" fill="none"><rect x="2" y="2" width="7" height="7" rx="1.5" fill="currentColor"/><rect x="11" y="2" width="7" height="7" rx="1.5" fill="currentColor" opacity=".5"/><rect x="2" y="11" width="7" height="7" rx="1.5" fill="currentColor" opacity=".5"/><rect x="11" y="11" width="7" height="7" rx="1.5" fill="currentColor"/></svg>
+        Dashboard
+      </a>
+      <a class="nav-item" onclick="navigateTo('form')">
+        <svg class="nav-icon" viewBox="0 0 20 20" fill="none"><path d="M10 4v12M4 10h12" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+        New PoC Request
+      </a>
+      <a class="nav-item" onclick="navigateTo('kanban')">
+        <svg class="nav-icon" viewBox="0 0 20 20" fill="none"><rect x="2" y="4" width="4" height="13" rx="1" fill="currentColor" opacity=".4"/><rect x="8" y="4" width="4" height="9" rx="1" fill="currentColor"/><rect x="14" y="4" width="4" height="11" rx="1" fill="currentColor" opacity=".6"/></svg>
+        Kanban Board
+      </a>
+      <div class="nav-section-label">Management</div>
+      <a class="nav-item" onclick="navigateTo('details')">
+        <svg class="nav-icon" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="7.5" stroke="currentColor" stroke-width="1.5"/><path d="M10 9v5M10 6.5v.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+        Request Details
+      </a>
+      <a class="nav-item am-only" onclick="navigateTo('engineers')">
+        <svg class="nav-icon" viewBox="0 0 20 20" fill="none"><path d="M4 4h12v2a4 4 0 010 8v2H4v-2a4 4 0 010-8V4z" stroke="currentColor" stroke-width="1.5"/></svg>
+        Engineers
+      </a>
+      <a class="nav-item active" onclick="navigateTo('reports')"><svg class="nav-icon" viewBox="0 0 20 20" fill="none"><path d="M3 5h14M3 10h14M3 15h8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>Reports</a>
+    </nav>
+    <div class="sidebar-user">
+      <img class="user-avatar user-avatar-img" src="assests/profile.jpg" alt="User profile picture">
+      <div class="user-info">
+        <span class="user-name"></span>
+        <span class="user-role"></span>
+      </div>
+      <button class="btn-logout" onclick="navigateTo('login')">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M6 2H3a1 1 0 00-1 1v10a1 1 0 001 1h3M10 11l3-3-3-3M13 8H6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+    </div>
+  </aside>
+
+  <div class="main-content">
+    <header class="topbar">
+      <div class="topbar-left">
+        <h2 class="page-title">Reports</h2>
+        <span class="breadcrumb">Home · Management · Reports</span>
+      </div>
+      <div class="topbar-right">
+        <button class="btn-outline" onclick="navigateTo('dashboard')">← Back to Dashboard</button>
+        <img class="topbar-avatar user-avatar-img" src="assests/profile.jpg" alt="User profile picture">
+      </div>
+    </header>
+
+    <div class="content-body">
+      <!-- Summary cards -->
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-card-icon stat-icon-blue">
+            <svg width="22" height="22" viewBox="0 0 22 22" fill="none"><path d="M3 6h16M3 11h16M3 16h10" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+          </div>
+          <div class="stat-card-body">
+            <span class="stat-label">Total Requests</span>
+            <span class="stat-value" id="report-total">0</span>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-card-icon stat-icon-orange">
+            <svg width="22" height="22" viewBox="0 0 22 22" fill="none"><circle cx="11" cy="11" r="8" stroke="currentColor" stroke-width="1.8"/><path d="M11 7v4l2.5 2.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+          </div>
+          <div class="stat-card-body">
+            <span class="stat-label">Active PoCs</span>
+            <span class="stat-value" id="report-active">0</span>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-card-icon stat-icon-green">
+            <svg width="22" height="22" viewBox="0 0 22 22" fill="none"><circle cx="11" cy="11" r="8" stroke="currentColor" stroke-width="1.8"/><path d="M7 11l3 3 5-5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <div class="stat-card-body">
+            <span class="stat-label">Completed PoCs</span>
+            <span class="stat-value" id="report-completed">0</span>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-card-icon stat-icon-purple">
+            <svg width="22" height="22" viewBox="0 0 22 22" fill="none"><path d="M4 11a7 7 0 1114 0" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><path d="M11 11l3-3" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+          </div>
+          <div class="stat-card-body">
+            <span class="stat-label">Completion Rate</span>
+            <span class="stat-value" id="report-rate">0%</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Breakdown cards -->
+      <div class="report-grid">
+        <div class="table-card">
+          <div class="table-card-header">
+            <div>
+              <h4 class="table-card-title">Requests by Status</h4>
+              <p class="table-card-sub">Distribution across the PoC workflow</p>
+            </div>
+          </div>
+          <div class="report-bars" id="report-status"></div>
+        </div>
+
+        <div class="table-card">
+          <div class="table-card-header">
+            <div>
+              <h4 class="table-card-title">Requests by Priority</h4>
+              <p class="table-card-sub">How urgent the current pipeline is</p>
+            </div>
+          </div>
+          <div class="report-bars" id="report-priority"></div>
+        </div>
+      </div>
+
+      <div class="table-card">
+        <div class="table-card-header">
+          <div>
+            <h4 class="table-card-title">Engineer Workload</h4>
+            <p class="table-card-sub">Active and total PoCs assigned per engineer</p>
+          </div>
+        </div>
+        <div class="report-bars" id="report-workload"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ============================================================
+     PAGE 7 — SETTINGS
+     ============================================================ -->
+<div id="page-settings" class="page">
+  <aside class="sidebar">
+    <div class="sidebar-logo">
+      <img class="sidebar-logo-mark" src="assests/logo.jpeg" alt="EdgeNet Logo">
+      <div class="sidebar-logo-text">
+        <span class="sidebar-brand">EdgeNet</span>
+        <span class="sidebar-tagline">Client Portal</span>
+      </div>
+    </div>
+    <nav class="sidebar-nav">
+      <div class="nav-section-label">Main</div>
+      <a class="nav-item" onclick="navigateTo('dashboard')">
+        <svg class="nav-icon" viewBox="0 0 20 20" fill="none"><rect x="2" y="2" width="7" height="7" rx="1.5" fill="currentColor"/><rect x="11" y="2" width="7" height="7" rx="1.5" fill="currentColor" opacity=".5"/><rect x="2" y="11" width="7" height="7" rx="1.5" fill="currentColor" opacity=".5"/><rect x="11" y="11" width="7" height="7" rx="1.5" fill="currentColor"/></svg>
+        Dashboard
+      </a>
+      <a class="nav-item" onclick="navigateTo('form')">
+        <svg class="nav-icon" viewBox="0 0 20 20" fill="none"><path d="M10 4v12M4 10h12" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+        New PoC Request
+      </a>
+      <a class="nav-item" onclick="navigateTo('kanban')">
+        <svg class="nav-icon" viewBox="0 0 20 20" fill="none"><rect x="2" y="4" width="4" height="13" rx="1" fill="currentColor" opacity=".4"/><rect x="8" y="4" width="4" height="9" rx="1" fill="currentColor"/><rect x="14" y="4" width="4" height="11" rx="1" fill="currentColor" opacity=".6"/></svg>
+        Kanban Board
+      </a>
+      <div class="nav-section-label">Management</div>
+      <a class="nav-item" onclick="navigateTo('details')">
+        <svg class="nav-icon" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="7.5" stroke="currentColor" stroke-width="1.5"/><path d="M10 9v5M10 6.5v.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+        Request Details
+      </a>
+      <a class="nav-item am-only" onclick="navigateTo('engineers')">
+        <svg class="nav-icon" viewBox="0 0 20 20" fill="none"><path d="M4 4h12v2a4 4 0 010 8v2H4v-2a4 4 0 010-8V4z" stroke="currentColor" stroke-width="1.5"/></svg>
+        Engineers
+      </a>
+      <a class="nav-item" onclick="navigateTo('reports')"><svg class="nav-icon" viewBox="0 0 20 20" fill="none"><path d="M3 5h14M3 10h14M3 15h8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>Reports</a>
+      <div class="nav-section-label">System</div>
+      <a class="nav-item active" onclick="navigateTo('settings')">
+        <svg class="nav-icon" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="2.5" stroke="currentColor" stroke-width="1.5"/><path d="M10 3v1.5M10 15.5V17M3 10h1.5M15.5 10H17M4.9 4.9l1.1 1.1M14 14l1.1 1.1M4.9 15.1L6 14M14 6l1.1-1.1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+        Settings
+      </a>
+    </nav>
+    <div class="sidebar-user">
+      <img class="user-avatar user-avatar-img" src="assests/profile.jpg" alt="User profile picture">
+      <div class="user-info">
+        <span class="user-name"></span>
+        <span class="user-role"></span>
+      </div>
+      <button class="btn-logout" onclick="navigateTo('login')">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M6 2H3a1 1 0 00-1 1v10a1 1 0 001 1h3M10 11l3-3-3-3M13 8H6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+    </div>
+  </aside>
+
+  <div class="main-content">
+    <header class="topbar">
+      <div class="topbar-left">
+        <h2 class="page-title">Settings</h2>
+        <span class="breadcrumb">Home · System · Settings</span>
+      </div>
+      <div class="topbar-right">
+        <button class="btn-outline" onclick="navigateTo('dashboard')">← Back to Dashboard</button>
+        <img class="topbar-avatar user-avatar-img" src="assests/profile.jpg" alt="User profile picture">
+      </div>
+    </header>
+
+    <div class="content-body">
+      <div style="max-width:680px;display:flex;flex-direction:column;gap:18px;">
+
+        <!-- Profile -->
+        <div class="detail-card">
+          <h4 class="detail-card-title">Profile</h4>
+          <div class="form-group">
+            <label class="form-label" for="settings-name">Full Name</label>
+            <input type="text" id="settings-name" class="form-input" placeholder="Your name" />
+          </div>
+          <p class="auth-message" id="settings-profile-msg"></p>
+          <button class="btn-primary" type="button" id="settings-save-profile">Save Changes</button>
+        </div>
+
+        <!-- Password -->
+        <div class="detail-card">
+          <h4 class="detail-card-title">Change Password</h4>
+          <div class="form-group">
+            <label class="form-label" for="settings-password">New Password</label>
+            <input type="password" id="settings-password" class="form-input" placeholder="Minimum 6 characters" />
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="settings-password-confirm">Confirm New Password</label>
+            <input type="password" id="settings-password-confirm" class="form-input" placeholder="Re-enter new password" />
+          </div>
+          <p class="auth-message" id="settings-password-msg"></p>
+          <button class="btn-primary" type="button" id="settings-save-password">Update Password</button>
+        </div>
+
+        <!-- Account info -->
+        <div class="detail-card">
+          <h4 class="detail-card-title">Account Information</h4>
+          <div class="detail-fields">
+            <div class="detail-field">
+              <span class="detail-label">Email</span>
+              <span class="detail-value" id="settings-email">—</span>
+            </div>
+            <div class="detail-field">
+              <span class="detail-label">Role</span>
+              <span class="detail-value" id="settings-role">—</span>
+            </div>
+            <div class="detail-field">
+              <span class="detail-label">Member Since</span>
+              <span class="detail-value" id="settings-member">—</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ============================================================
+     ASSIGN ENGINEER MODAL
+     ============================================================ -->
+<div id="assign-modal" class="modal-overlay" style="display:none;">
+  <div class="modal-card">
+    <h4 class="modal-title">Assign Engineer</h4>
+    <p class="modal-sub">Choose an engineer for <strong id="assign-modal-ticket"></strong></p>
+    <select id="assign-engineer-select" class="form-input form-select"></select>
+    <p class="auth-message" id="assign-modal-msg"></p>
+    <div class="modal-actions">
+      <button class="btn-ghost" id="assign-cancel" type="button">Cancel</button>
+      <button class="btn-primary" id="assign-confirm" type="button">Assign</button>
+    </div>
+  </div>
+</div>
+
+<script type="module" src="src/app.js"></script>
+
+</body>
+</html>
