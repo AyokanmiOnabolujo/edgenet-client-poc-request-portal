@@ -765,7 +765,7 @@ function renderBars(el, rows) {
     return `
       <div class="report-bar-row">
         <span class="report-bar-label">${escapeHtml(r.label)}</span>
-        <span class="report-bar-track"><span class="report-bar-fill" style="width:${pct}%;background:${color}"></span></span>
+        <span class="report-bar-track"><span class="report-bar-fill" style="width:${pct}%;--bar-color:${color}"></span></span>
         <span class="report-bar-count">${r.count}</span>
       </div>`;
   }).join("");
